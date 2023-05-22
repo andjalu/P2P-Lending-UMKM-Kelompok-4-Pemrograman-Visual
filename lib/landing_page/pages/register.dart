@@ -2,91 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:p2plending_umkm/colors.dart';
 
 void main() {
-  runApp(login_register());
+  runApp(LoginRegisterPage());
 }
 
-class login_register extends StatelessWidget {
+class LoginRegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Home',
+      title: 'Login',
       theme: ThemeData(
         primarySwatch: primary,
       ),
-      home: HomePage(),
+      initialRoute: '/',
       routes: {
-        '/login-borrower': (context) => LoginPage(userType: UserType.borrower),
-        '/login-investor': (context) => LoginPage(userType: UserType.investor),
-        '/register-borrower': (context) =>
-            RegisterPage(userType: UserType.borrower),
-        '/register-investor': (context) =>
-            RegisterPage(userType: UserType.investor),
+        '/': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
       },
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/logo.png', // Path ke logo Anda
-              width: 100.0,
-              height: 100.0,
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              child: Text('Login as Borrower'),
-              onPressed: () {
-                Navigator.pushNamed(context, '/login-borrower');
-              },
-            ),
-            SizedBox(height: 8.0),
-            ElevatedButton(
-              child: Text('Login as Investor'),
-              onPressed: () {
-                Navigator.pushNamed(context, '/login-investor');
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-enum UserType { borrower, investor }
-
 class LoginPage extends StatelessWidget {
-  final UserType userType;
-
-  const LoginPage({required this.userType});
-
   @override
   Widget build(BuildContext context) {
-    String title;
-    String profile;
-    if (userType == UserType.borrower) {
-      title = 'Login as Borrower';
-    } else {
-      title = 'Login as Investor';
-    }
-    if (userType == UserType.borrower) {
-      profile = 'Signup as Borrower';
-    } else {
-      profile = 'Signup as Investor';
-    }
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Login'),
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
@@ -114,13 +55,9 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
             TextButton(
-              child: Text(profile),
+              child: Text('Sign Up'),
               onPressed: () {
-                if (userType == UserType.borrower) {
-                  Navigator.pushNamed(context, '/register-borrower');
-                } else {
-                  Navigator.pushNamed(context, '/register-investor');
-                }
+                Navigator.pushNamed(context, '/register');
               },
             ),
           ],
@@ -131,22 +68,11 @@ class LoginPage extends StatelessWidget {
 }
 
 class RegisterPage extends StatelessWidget {
-  final UserType userType;
-
-  const RegisterPage({required this.userType});
-
   @override
   Widget build(BuildContext context) {
-    String title;
-    if (userType == UserType.borrower) {
-      title = 'Register as Borrower';
-    } else {
-      title = 'Register as Investor';
-    }
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Register'),
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
